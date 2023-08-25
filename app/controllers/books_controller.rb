@@ -9,17 +9,20 @@ class BooksController < ApplicationController
   end
 
   def new
-    @book = Book.new
+    @user = User.first
+    @book = @user.books.build
   end
 
   def edit
   end
 
   def create
-    @book = Book.new(book_params)
+    @user = User.first
+    @book = @user.books.build(book_params)
 
     respond_to do |format|
       if @book.save
+        BookMailer.with(user: @user, book_title: @book.title).create_book_email.deliver_now
         format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,12 +49,12 @@ class BooksController < ApplicationController
   end
 
   private
-  
+
   def set_book
     @book = Book.find(params[:id])
   end
 
   def book_params
-    params.require(:book).permit(:title, :user_id)
+    params.require(:book).permit(:title)
   end
 end

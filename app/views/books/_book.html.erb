@@ -1,12 +1,12 @@
 <div id="<%= dom_id book %>" class="border rounded my-5 p-5">
   <div class="row">
-    <div class="col">
-      <h2 class="text-muted">
+    <div class="col-1">
+      <p class="text-muted">
         Title
-      </h2>
-      <h2 class="text-muted">
+      </p>
+      <p class="text-muted">
         User
-      </h2>
+      </p>
     </div>
 
     <div class="col">
@@ -14,7 +14,7 @@
         <%= book.title %>
       </p>
       <p class="text-success">
-        <%= book.user_id %>
+        <%= book.user.name %>
       </p>
     </div>
   </div>
